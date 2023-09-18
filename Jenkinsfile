@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        SSHUSERNAME = "ubuntu"
+        SSHUSERNAME = "vardaansharma096"
         SCRIPTPATH = "/var/lib/jenkins/workspace/docker"
-        IP = "3.81.80.168"
+        IP = "34.80.101.128"
     }
 
     stages {
