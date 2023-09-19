@@ -1,23 +1,18 @@
 pipeline {
-    agent any
+    agent {
+        label 'instance-group-1-t9xm' // Replace with the label or name of your GCP instance
+    }
 
     environment {
-        SSHUSERNAME = "vardaansharma096"
-        SCRIPTPATH = "/var/lib/jenkins/workspace/docker"
-        IP = "34.80.101.128"
+        GITHUB_REPO_URL = 'https://github.com/Vardaan096/gcp-repo.git' // Replace with your GitHub repo URL
+        DESTINATION_DIR = '/home/vardaansharma096/git_repo/' // Replace with the desired destination directory on the instance
     }
 
     stages {
-        stage('Build Deploy') {
+        stage('Clone from GitHub') {
             steps {
                 script {
-                    // Load the SSH private key credential
-                    sshagent (credentials: ['Antino_Vardaan']) {
-                        // SSH into the EC2 instance and deploy your application
-                        sh """
-                        ssh -o StrictHostKeyChecking=no ${SSHUSERNAME}@${IP} 'cd ${SCRIPTPATH} && bash -x docker_shell_script.sh 2>&1'
-                        """
-                    }
+                    sh "git clone $GITHUB_REPO_URL $DESTINATION_DIR"
                 }
             }
         }
